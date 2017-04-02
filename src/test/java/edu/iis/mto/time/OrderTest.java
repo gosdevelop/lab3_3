@@ -24,4 +24,11 @@ public class OrderTest {
         assertThat(order.getOrderState(), is(equalTo(Order.State.REALIZED)));
     }
 
+    @Test (expected = OrderExpiredException.class)
+    public void checkIfOrderExpired() {
+        Order order = new Order(new CustomTimeProvider());
+        order.submit();
+        order.confirm();
+        assertThat(order.getOrderState(), is(equalTo(Order.State.CANCELLED)));
+    }
 }
