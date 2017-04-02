@@ -40,6 +40,8 @@ public class Order {
 		if(hoursElapsedAfterSubmittion > VALID_PERIOD_HOURS){
 			orderState = State.CANCELLED;
 			throw new OrderExpiredException();
+		} else {
+			orderState = State.CONFIRMED;
 		}
 	}
 
@@ -51,7 +53,7 @@ public class Order {
 	State getOrderState() {
 		return orderState;
 	}
-	
+
 	private void requireState(State... allowedStates) {
 		for (State allowedState : allowedStates) {
 			if (orderState == allowedState)
