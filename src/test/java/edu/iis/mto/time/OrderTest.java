@@ -31,4 +31,12 @@ public class OrderTest {
         order.confirm();
         assertThat(order.getOrderState(), is(equalTo(Order.State.CANCELLED)));
     }
+
+    @Test (expected = OrderStateException.class)
+    public void checkIfOrderHasWrongState() {
+        Order order = new Order(new CustomTimeProvider());
+        order.submit();
+        order.realize();
+        assertThat(order.getOrderState(), is(equalTo(Order.State.SUBMITTED)));
+    }
 }
